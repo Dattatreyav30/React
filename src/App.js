@@ -1,6 +1,7 @@
-import ExpenseItem from "./components/ExpenseItem";
+import ExpenseItem from "../src/components/Expenses/ExpenseItem";
+import Card from "../src/components/UI/Card";
 
-function App() {
+const App = () => {
   const expenses = [
     {
       id: 1,
@@ -32,7 +33,7 @@ function App() {
     },
   ];
   return (
-    <div>
+    <Card>
       <h2>Let's get started!</h2>
       {expenses.map((expense) => {
         return (
@@ -44,8 +45,8 @@ function App() {
           />
         );
       })}
-    </div>
+    </Card>
   );
-}
+};
 // jsx syntax
 export default App;
