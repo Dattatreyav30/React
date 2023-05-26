@@ -35,6 +35,7 @@ const App = () => {
   return (
     <Card>
       <h2>Let's get started!</h2>
+      <ExpenseForm />
       {expenses.map((expense) => {
         return (
           <ExpenseItem
@@ -45,7 +46,6 @@ const App = () => {
           />
         );
       })}
-      <ExpenseForm />
     </Card>
   );
 };
