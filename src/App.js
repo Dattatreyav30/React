@@ -1,6 +1,6 @@
 import ExpenseItem from "../src/components/Expenses/ExpenseItem";
 import Card from "../src/components/UI/Card";
-
+import ExpenseForm from "../src/components/Expenses/EpenseForm";
 const App = () => {
   const expenses = [
     {
@@ -45,6 +45,7 @@ const App = () => {
           />
         );
       })}
+      <ExpenseForm />
     </Card>
   );
 };
