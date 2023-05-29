@@ -43,11 +43,10 @@ const App = () => {
       id: Math.random().toString(),
     };
     setExpenses((prevExpenses) => [expenseData, ...prevExpenses]);
-    console.log(expenses);
-    console.log(expenseData);
+    setIsEditing(false);
   };
 
-  const [filteredYear, setFilterdYear] = useState("2021");
+  const [filteredYear, setFilterdYear] = useState("2023");
 
   const filteredChangeHandler = (newYear) => {
     setFilterdYear(newYear);
@@ -87,10 +86,26 @@ const App = () => {
       );
     });
   }
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  const isEditingHandler = () => {
+    setIsEditing(true);
+  };
+
+  const onCancelHandler = () => {
+    setIsEditing(false);
+  };
   return (
     <Card>
       <h2>Let's get started!</h2>
-      <ExpenseForm onSave={onSaveExpenseDataHandler} />
+      {!isEditing && <button onClick={isEditingHandler}>Add Expense</button>}
+      {isEditing && (
+        <ExpenseForm
+          onSave={onSaveExpenseDataHandler}
+          onCancel={onCancelHandler}
+        />
+      )}
       <ExpenseFilter
         onSelected={filteredYear}
         onChangeHandler={filteredChangeHandler}
