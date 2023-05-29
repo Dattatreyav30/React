@@ -47,20 +47,22 @@ const App = () => {
     console.log(expenseData);
   };
 
-  const [filteredExpenses, setFilterExpenses] = useState(expenses);
-  const filterItems = (dateValue) => {
-    const filteredItems = expenses.filter((expense) => {
-      return expense.date.getFullYear().toString() === dateValue;
-    });
-    setFilterExpenses(filteredItems);
+  const [filteredYear, setFilterdYear] = useState("2021");
+
+  const filteredChangeHandler = (newYear) => {
+    setFilterdYear(newYear);
   };
-  return (
-    <Card>
-      <h2>Let's get started!</h2>
-      <ExpenseForm onSave={onSaveExpenseDataHandler} />
-      <ExpenseFilter onFilter={filterItems} />
-      {filteredExpenses.map((expense) => {
-        return (
+
+  const filteredExpenses = expenses.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear.toString();
+  });
+
+  let expenseContent = <p>no expense found</p>;
+
+  if (filteredExpenses.length === 1) {
+    expenseContent = filteredExpenses.map((expense) => {
+      return (
+        <div>
           <ExpenseItem
             key={expense.id}
             title={expense.title}
@@ -68,8 +70,32 @@ const App = () => {
             date={expense.date}
             location={expense.location}
           />
-        );
-      })}
+          <p>there is only 1 expense please add more</p>
+        </div>
+      );
+    });
+  } else {
+    expenseContent = filteredExpenses.map((expense) => {
+      return (
+        <ExpenseItem
+          key={expense.id}
+          title={expense.title}
+          amount={expense.amount}
+          date={expense.date}
+          location={expense.location}
+        />
+      );
+    });
+  }
+  return (
+    <Card>
+      <h2>Let's get started!</h2>
+      <ExpenseForm onSave={onSaveExpenseDataHandler} />
+      <ExpenseFilter
+        onSelected={filteredYear}
+        onChangeHandler={filteredChangeHandler}
+      />
+      {expenseContent}
     </Card>
   );
 };
