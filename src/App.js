@@ -73,7 +73,7 @@ const App = () => {
         </div>
       );
     });
-  } else {
+  } else if(filteredExpenses.length > 1) {
     expenseContent = filteredExpenses.map((expense) => {
       return (
         <ExpenseItem
