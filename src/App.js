@@ -1,8 +1,9 @@
 import ExpenseItem from "../src/components/Expenses/ExpenseItem";
 import Card from "../src/components/UI/Card";
 import ExpenseForm from "../src/components/Expenses/EpenseForm";
+import { useState } from "react";
 const App = () => {
-  const expenses = [
+  const [expenses, setExpenses] = useState([
     {
       id: 1,
       date: new Date(),
@@ -31,11 +32,19 @@ const App = () => {
       amount: 300,
       location: "SS mall",
     },
-  ];
+  ]);
+  const onSaveExpenseDataHandler = (enteredExpenseData) => {
+    const expenseData = {
+      ...enteredExpenseData,
+      id: Math.random().toString(),
+    };
+    setExpenses((prevExpenses) => [...prevExpenses, expenseData]);
+  };
+
   return (
     <Card>
       <h2>Let's get started!</h2>
-      <ExpenseForm />
+      <ExpenseForm onSave={onSaveExpenseDataHandler} />
       {expenses.map((expense) => {
         return (
           <ExpenseItem

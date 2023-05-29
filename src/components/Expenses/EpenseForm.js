@@ -2,25 +2,28 @@ import "./ExpenseForm.css";
 
 import React, { useState } from "react";
 
-const ExpenseForm = () => {
-    const [enteredTitle, setEnteredTitle] = useState("");
-    const [enteredAmount, setEnteredAmount] = useState("");
-    const [enteredDate, setEnteredDate] = useState("");
+const ExpenseForm = (props) => {
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
 
-//   const [userInput, setUserInput] = useState({
-//     enteredTitle: "",
-//     enteredAmount: "",
-//     enteredDate: "",
-//   });
+  //   const [userInput, setUserInput] = useState({
+  //     enteredTitle: "",
+  //     enteredAmount: "",
+  //     enteredDate: "",
+  //   });
 
   const submitFormHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const expenseObject = {
       enteredTitle: enteredTitle,
       enteredAmount: enteredAmount,
       enteredDate: enteredDate,
     };
-    console.log(expenseObject);
+    props.onSave(expenseObject)
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
   };
   const titleHandler = (e) => {
     setEnteredTitle(e.target.value);
@@ -74,15 +77,26 @@ const ExpenseForm = () => {
               onChange={titleHandler}
               type="text"
               placeholder="enter a atitle"
+              value={enteredTitle}
             />
           </div>
           <div className="new-expense__control">
-            <label >Amount</label>
-            <input type="number" placeholder="enter a amount" onChange={amountHandler} />
+            <label>Amount</label>
+            <input
+              type="number"
+              placeholder="enter a amount"
+              onChange={amountHandler}
+              value={enteredAmount}
+            />
           </div>
           <div className="new-expense__control">
-            <label >Date</label>
-            <input type="date" placeholder="enter a date" onChange={dateHandler} />
+            <label>Date</label>
+            <input
+              type="date"
+              placeholder="enter a date"
+              onChange={dateHandler}
+              value={enteredDate}
+            />
           </div>
           <div className="new-expense__actions">
             <button type="submit">Add expense</button>
